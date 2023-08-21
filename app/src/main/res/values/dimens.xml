@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_width">60dp</dimen>
+    <dimen name="dp_70">70dp</dimen>
+    <!-- Standart dimens for the color wheel -->
+    <dimen name="color_wheel_radius">124dp</dimen>
+    <!--<dimen name="color_wheel_radius">60dp</dimen>-->
+    <dimen name="color_wheel_thickness">8dp</dimen>
+    <dimen name="color_center_halo_radius">60dp</dimen>
+    <dimen name="color_center_radius">54dp</dimen>
+    <dimen name="color_pointer_halo_radius">18dp</dimen>
+    <dimen name="color_pointer_radius">14dp</dimen>
+
+    <dimen name="bar_height">15dp</dimen>
+    <dimen name="bar_width">180dp</dimen>
+    <dimen name="bar_pointer_radius">15dp</dimen>
+
+    <dimen name="header_height">60dp</dimen>
+    <dimen name="footer_height">90dp</dimen>
+    <dimen name="footer_padding">10dp</dimen>
+    <dimen name="activity_horizontal_margin">128dp</dimen>
+
+
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="sp_16">16sp</dimen>
+</resources>

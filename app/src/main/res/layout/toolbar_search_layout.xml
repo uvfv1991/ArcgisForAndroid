@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="112px"
+    android:minHeight="112px"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/iv_search_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:minWidth="40dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:drawableLeft="@mipmap/icon_back"
+            android:text="返回"
+            android:textColor="#ffffff"
+            android:textSize="12sp"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#55ffffff"
+            android:visibility="gone"
+            android:layout_margin="5dp"></View>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/spinner_shp"
+        android:layout_width="wrap_content"
+        android:minWidth="80dp"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:visibility="gone"
+        android:textColor="#ffffff">
+
+
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/spinner_type"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:minWidth="80dp"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:textColor="#ffffff">
+
+    </Spinner>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:minWidth="80dp"
+        android:textSize="14sp"
+        android:gravity="center_vertical"
+        android:id="@+id/et_search_content"
+        android:hint="输入搜索内容"
+        android:visibility="gone"
+        android:background="@null"
+        android:textColor="@color/white"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="上传"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:id="@+id/tv_submit"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/white"
+        android:layout_height="match_parent"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"></View>
+
+
+    <LinearLayout
+        android:id="@+id/iv_search_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_horizontal"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/selector_clear_draw" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="清空重绘"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

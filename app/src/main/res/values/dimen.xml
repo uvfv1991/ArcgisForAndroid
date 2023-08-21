@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textSize_14sp">14sp</dimen>
+    <dimen name="textSize_18sp">18sp</dimen>
+    <dimen name="toast_background_radius">2dp</dimen>
+    <dimen name="toast_background_line_width">1dp</dimen>
+
+    <!-- toolbar相关 -->
+    <dimen name="toolbar_height">50dp</dimen>
+    <dimen name="toolbar_title_text">18sp</dimen>
+    <dimen name="toolbar_menu_text">14sp</dimen>
+
+    <dimen name="toolbar_background_space">5dp</dimen>
+    <dimen name="toolbar_no_space">0dp</dimen>
+    <dimen name="toolbar_menu_space">5dp</dimen>
+    <dimen name="toolbar_menu_menu_space">10dp</dimen>
+
+    <!-- 列表刷新和加载 -->
+    <dimen name="foot_text">14sp</dimen>
+    <dimen name="foot_space">5dp</dimen>
+    <dimen name="foot_height">50dp</dimen>
+        
+    <!-- 登录界面相关 -->
+    <dimen name="login_userInfo_text">14sp</dimen>
+    <dimen name="login_button_text">18sp</dimen>
+
+    <dimen name="login_background_space">10dp</dimen>
+    <dimen name="login_userInfo_space">5dp</dimen>
+    <dimen name="login_button_space">10dp</dimen>
+    <dimen name="login_button_userInfo_space">20dp</dimen>
+
+    <dimen name="login_background_radius">2dp</dimen>
+    <dimen name="login_background_line_width">1dp</dimen>
+    <dimen name="login_userInfo_radius">3dp</dimen>
+    <dimen name="login_userInfo_line_width">1dp</dimen>
+    <dimen name="login_button_radius">3dp</dimen>
+
+    <!-- 主界面相关 -->
+    <dimen name="main_button_text">14sp</dimen>
+    <dimen name="main_user_text">12sp</dimen>
+    <dimen name="main_user_label_text">10sp</dimen>
+    <dimen name="main_function_label_text">12sp</dimen>
+    <dimen name="main_function_text">12sp</dimen>
+
+    <dimen name="main_button_layout_height">60dp</dimen>
+    <dimen name="main_user_layout_height">100dp</dimen>
+
+    <dimen name="main_user_space">5dp</dimen>
+    <dimen name="main_user_layout_view_space">5dp</dimen>
+    <dimen name="main_background_space">5dp</dimen>
+    <dimen name="main_button_space">10dp</dimen>
+    <dimen name="main_button_image_space">20dp</dimen>
+    <dimen name="main_function_background_space">10dp</dimen>
+    <dimen name="main_function_button_space">5dp</dimen>
+
+    <dimen name="main_function_background_radius">2dp</dimen>
+    <dimen name="main_function_background_line_width">1dp</dimen>
+
+    <dimen name="main_button_layout_line_top_padding">1dp</dimen>
+
+    <!-- 工作列表页面相关 -->
+    <dimen name="work_spinner_label_text">14sp</dimen>
+    <dimen name="work_spinner_text">12sp</dimen>
+    <dimen name="work_list_tab_text">16sp</dimen>
+    <dimen name="work_new_text">16sp</dimen>
+    <dimen name="work_item_label_text">14sp</dimen>
+    <dimen name="work_item_text">14sp</dimen>
+    <dimen name="work_item_button_text">14sp</dimen>
+
+    <!--<dimen name="work_new_height">60dp</dimen>-->
+
+    <dimen name="work_background_space">10dp</dimen>
+    <dimen name="work_spinner_background_space">10dp</dimen>
+    <dimen name="work_item_background_space">10dp</dimen>
+    <dimen name="work_item_space">5dp</dimen>
+
+    <dimen name="work_item_background_radius">2dp</dimen>
+    <dimen name="work_item_background_line_width">1dp</dimen>
+    <dimen name="work_item_button_radius">2dp</dimen>
+    <dimen name="work_item_button_line_width">1dp</dimen>
+    <dimen name="work_new_background_radius">2dp</dimen>
+    <dimen name="work_new_background_line_width">1dp</dimen>
+    <dimen name="work_list_tab_background_radius_null">0dp</dimen>
+    <dimen name="work_list_tab_background_radius">2dp</dimen>
+    <dimen name="work_list_tab_background_line_width">1dp</dimen>
+
+    <!-- 检查详情相关 -->
+    <dimen name="check_item_background_space">10dp</dimen>
+    <dimen name="check_item_text_background_space">10dp</dimen>
+    <dimen name="check_item_space">5dp</dimen>
+
+    <dimen name="check_item_background_radius">2dp</dimen>
+    <dimen name="check_item_background_line_width">1dp</dimen>
+    <dimen name="check_item_button_padding">20dp</dimen>
+    <dimen name="check_item_button_radius">2dp</dimen>
+    <dimen name="check_item_button_line_width">1dp</dimen>
+
+    <dimen name="check_item_button_text">14sp</dimen>
+    <dimen name="check_item_label_text">14sp</dimen>
+    <dimen name="check_item_text">14sp</dimen>
+
+    <dimen name="check_detail_background_space">10dp</dimen>
+    <dimen name="check_detail_text_background_space">10dp</dimen>
+    <dimen name="check_detail_space">5dp</dimen>
+
+    <dimen name="check_detail_button_text">14sp</dimen>
+    <dimen name="check_detail_label_text">14sp</dimen>
+    <dimen name="check_detail_text">12sp</dimen>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_15">15dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_72">72dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <!-- 签到相关 -->
+    <dimen name="sign_background_space">10dp</dimen>
+    <dimen name="sign_background_space_small">5dp</dimen>
+
+    <dimen name="sign_label_text">14sp</dimen>
+    <!--缺少的代码-->
+    <dimen name="dp_80">80dp</dimen>
+
+
+    <dimen name="width_attr_name">104dp</dimen>
+</resources>

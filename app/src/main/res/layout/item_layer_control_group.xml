@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#e5e5e5"
+    android:paddingLeft="8dp">
+
+    <com.rey.material.widget.CheckBox
+        android:id="@+id/cb_isChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:paddingBottom="6dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="6dp"
+        app:cbd_strokeColor="@color/colorPrimary" />
+
+
+    <ImageView
+        android:id="@+id/iv_status"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="3dp"
+        android:layout_toLeftOf="@id/cb_isChecked"
+        android:layout_toRightOf="@id/iv_status"
+        android:textSize="16sp" />
+</RelativeLayout>

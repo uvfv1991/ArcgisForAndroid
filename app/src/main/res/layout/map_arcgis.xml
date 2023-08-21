@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.esri.arcgisruntime.mapping.view.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.esri.arcgisruntime.mapping.view.MapView>
+
+        <include
+            android:id="@+id/maptoolbar"
+            layout="@layout/toolbar_map_layout"/>
+
+        <include
+            android:id="@+id/mapping_search_layout"
+            android:visibility="gone"
+            layout="@layout/toolbar_search_layout"/>
+
+        <RelativeLayout
+            android:id="@+id/toolsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/analyzeHint"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:background="#55FFFFFF"
+                android:gravity="center"
+                android:text="请先绘制一个图形，选择分析要素后，开始分析；开始下一次分析前，请先点击“清空绘制”或关闭分析结果"
+                android:textColor="#F33033"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_below="@id/analyzeHint"
+                android:id="@+id/layout_tool_setting"
+                android:visibility="gone"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_height="40dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="绘图"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:id="@+id/tool_add_unit"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:background="#1295db"
+                    android:clickable="true"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="项目图层"
+                    android:paddingLeft="5dp"
+                    android:id="@+id/tool_setting_controll"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:background="#1295db"
+                    android:clickable="true"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:paddingLeft="5dp"
+                android:id="@+id/tv_project_name"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:paddingRight="5dp"
+                android:layout_below="@id/layout_tool_setting"
+                android:textColor="@color/white"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:background="#1295db"
+                android:visibility="gone"
+                android:clickable="true"
+                android:layout_height="40dp" />
+
+            <haoyuan.com.qianguoqualitysafety.widge.ZoomAndLocationView
+                android:id="@+id/zoom_location_view"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                android:clickable="false" />
+
+            <TextView
+                android:id="@+id/settingButton"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <haoyuan.com.qianguoqualitysafety.widge.ActionView
+                android:id="@+id/action_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:id="@+id/btn_inspection_record"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:layout_margin="10dp"
+                android:visibility="gone"
+                android:text="记录当前位置" />
+        </RelativeLayout>
+        <!--android:background="@color/colorPrimary"-->
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/companyIntroduceLayout"
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/companyIntroduceTitle"
+                layout="@layout/view_title"></include>
+
+            <ScrollView
+                android:layout_below="@+id/companyIntroduceTitle"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_height="match_parent"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/introduceTextView"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:padding="5dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:id="@+id/introduceTextImageLayout"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+
+
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/imageDetailLayout"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageDetailLayoutClose"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
+                android:background="#000000"
+                android:scaleType="fitXY" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/imageDetailImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/coordinates"
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:background="#55000000"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="+"
+            android:textColor="#ff0000"
+            android:textSize="14sp" />
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/btn_menu"
+            android:layout_gravity="right|bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            fab:menu_animationDelayPerItem="1"
+            fab:menu_colorNormal="?attr/colorPrimary"
+            fab:menu_fab_size="mini"
+            fab:menu_icon="@drawable/ic_baseline_work_24">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/cotrolllayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_insights_24"
+                app:fab_colorNormal="?attr/colorPrimary"
+                app:fab_colorPressed="?attr/colorPrimaryDark"
+                app:layout_constraintBottom_toTopOf="@+id/btn_menu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:fab_size="mini"
+                fab:fab_label="图层" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/startDraw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_insights_24"
+                app:fab_colorNormal="?attr/colorPrimary"
+                app:fab_colorPressed="?attr/colorPrimaryDark"
+                app:layout_constraintBottom_toTopOf="@+id/btn_menu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:fab_size="mini"
+                fab:fab_label="绘制" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_query"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_search_24"
+                android:visibility="gone"
+                app:fab_colorNormal="?attr/colorPrimary"
+                app:fab_colorPressed="?attr/colorPrimaryDark"
+                app:fab_size="mini"
+                fab:fab_label="查询" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_del_feature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_delete_forever_white_24"
+                android:visibility="gone"
+                app:fab_colorNormal="?attr/colorPrimary"
+                app:fab_colorPressed="?attr/colorPrimaryDark"
+                app:fab_size="mini"
+                fab:fab_label="删除" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fabMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:src="@drawable/ic_baseline_menu_book_24"
+                app:fab_colorNormal="?attr/colorPrimary"
+                app:fab_colorPressed="?attr/colorPrimaryDark"
+                app:fab_size="mini"
+                fab:fab_label="菜单" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_sumbmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/submit"
+                app:fab_colorNormal="?attr/colorPrimary"
+                app:fab_colorPressed="?attr/colorPrimaryDark"
+                app:fab_size="mini"
+                fab:fab_label="完成并提交" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+        <RelativeLayout
+            android:id="@+id/drawMenu"
+            android:layout_gravity="bottom|center"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/drawLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:layout_centerVertical="true">
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/stopDraw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/ic_baseline_delete_forever_white_24"
+                    app:fab_colorNormal="?attr/colorPrimary"
+                    app:fab_colorPressed="?attr/colorPrimaryDark"
+                    app:fab_size="mini"/>
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/submitPolygon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/submit"
+                    android:visibility="gone"
+                    app:fab_colorNormal="?attr/colorPrimary"
+                    app:fab_colorPressed="?attr/colorPrimaryDark"
+                    app:fab_size="mini"/>
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/undo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_undo_24"
+                    app:fab_colorNormal="?attr/colorPrimary"
+                    app:fab_colorPressed="?attr/colorPrimaryDark"
+                    app:fab_size="mini"/>
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/redo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_redo_24"
+                    app:fab_colorNormal="?attr/colorPrimary"
+                    app:fab_colorPressed="?attr/colorPrimaryDark"
+                    app:fab_size="mini"/>
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/finish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_check_24"
+                    app:fab_colorNormal="?attr/colorPrimary"
+                    app:fab_colorPressed="?attr/colorPrimaryDark"
+                    android:visibility="gone"
+                    app:fab_size="mini"/>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>
