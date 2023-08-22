@@ -5,7 +5,7 @@ import android.os.Parcelable
 import android.text.TextUtils
 
 /**
- * Created by Jinyu Zhang on 2017/4/28.
+ * Created by Admin on 2017/4/28.
  */
 class Fied : Parcelable {
     var isSearchkey = false
@@ -19,11 +19,11 @@ class Fied : Parcelable {
     }
 
     fun getFiedSearchType(): FiedSearchType {
-        return if (fiedSearchType == null) FiedSearchType.NONE else fiedSearchType
+        return if (fiedSearchType == null) FiedSearchType.NONE else fiedSearchType!!
     }
 
     fun setFiedSearchType(fiedSearchType: String?) {
-        this.fiedSearchType = FiedSearchType.getFiedSearchType(fiedSearchType)
+        this.fiedSearchType = FiedSearchType.getFiedSearchType(fiedSearchType!!)
     }
 
     constructor() {}
@@ -36,7 +36,7 @@ class Fied : Parcelable {
         dest.writeByte(if (isSearchkey) 1.toByte() else 0.toByte())
         dest.writeString(fiedkey)
         dest.writeString(fiedname)
-        dest.writeInt(if (fiedSearchType == null) -1 else fiedSearchType.ordinal())
+        dest.writeInt(if (fiedSearchType == null) -1 else fiedSearchType!!.ordinal)
     }
 
     protected constructor(`in`: Parcel) {
@@ -49,7 +49,8 @@ class Fied : Parcelable {
     }
 
     companion object {
-        val CREATOR: Parcelable.Creator<Fied> = object : Parcelable.Creator<Fied?> {
+        @JvmField
+        val CREATOR: Parcelable.Creator<Fied?> = object : Parcelable.Creator<Fied?> {
             override fun createFromParcel(source: Parcel): Fied? {
                 return Fied(source)
             }

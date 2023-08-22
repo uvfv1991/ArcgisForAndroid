@@ -7,8 +7,6 @@ import com.jiangxue.arcgisforandroid.data.xml.shpproperties.Shp
 
 
 /**
- * Created by LiuT on 2017/5/3.
- *
  * 图层控制bean
  */
 class LayerCategoryBean : Parcelable {
@@ -102,4 +100,5 @@ class LayerCategoryBean : Parcelable {
             }
         }
     }
+
 }

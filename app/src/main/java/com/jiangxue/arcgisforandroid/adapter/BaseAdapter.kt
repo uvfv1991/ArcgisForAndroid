@@ -7,18 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 
+
 /**
  * Created by zhangjinyu on 2016/4/5.
  */
-abstract class BaseAdapter<T>(protected var context: Context) : BaseAdapter() {
-    private var list: MutableList<T>? = ArrayList()
+abstract class BaseAdapter<T>(protected var context: Context?) : BaseAdapter() {
+    private var list: ArrayList<T> = ArrayList()
 
     /**
      * 获取列表的全部数据
      *
      * @return
      */
-    val data: List<T>?
+    val data: ArrayList<T>?
         get() = list
 
     /**
@@ -26,8 +27,8 @@ abstract class BaseAdapter<T>(protected var context: Context) : BaseAdapter() {
      *
      * @param list
      */
-    fun setData(list: MutableList<T>?) {
-        this.list = list
+    fun setData(list: ArrayList<T>) {
+       this.list = list
         if (list != null) {
 //            Logger.d(new Gson().toJson(list));
         }
@@ -69,7 +70,7 @@ abstract class BaseAdapter<T>(protected var context: Context) : BaseAdapter() {
         return position.toLong()
     }
 
-    override fun getItem(position: Int): T {
+    override fun getItem(position: Int): T? {
         return if (list == null || list!!.isEmpty()) {
             null
         } else list!![position]
@@ -89,7 +90,7 @@ abstract class BaseAdapter<T>(protected var context: Context) : BaseAdapter() {
      */
     private fun inflate(layoutResID: Int): View {
         val layoutInflater = context
-            .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            ?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         return layoutInflater.inflate(layoutResID, null)
     }
 
@@ -110,7 +111,7 @@ abstract class BaseAdapter<T>(protected var context: Context) : BaseAdapter() {
         var childView: View? = viewHolder[id] as E
         if (null == childView) {
             childView = view.findViewById(id)
-            viewHolder.put(id, childView)
+            viewHolder.put(id, childView as Nothing?)
         }
         return childView as E?
     }

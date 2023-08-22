@@ -1,4 +1,4 @@
-package com.aleyn.mvvm.network.interceptor
+package com.jiangxue.arcgisforandroid.network
 
 import okhttp3.MediaType
 import okhttp3.Request

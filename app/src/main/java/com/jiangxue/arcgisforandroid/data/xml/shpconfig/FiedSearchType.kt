@@ -1,7 +1,7 @@
 package com.jiangxue.arcgisforandroid.data.xml.shpconfig
 
 /**
- * Created by Jinyu Zhang on 2017/4/28.
+ * Created by Admin on 2017/4/28.
  */
 enum class FiedSearchType(private val type: Int) {
     NONE(0), INPUT(1), LIST(2), SCOPE(3);

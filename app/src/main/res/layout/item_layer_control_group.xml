@@ -17,7 +17,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="6dp"
-        app:cbd_strokeColor="@color/colorPrimary" />
+        app:cbd_strokeColor="@color/design_default_color_primary" />
 
 
     <ImageView

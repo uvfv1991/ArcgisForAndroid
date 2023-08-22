@@ -1,11 +1,12 @@
 package com.jiangxue.arcgisforandroid.data.xml.properties
 
-import haoyuan.com.qianguoqualitysafety.pojo.xml.WholePicture
+import android.os.Parcel
+import android.os.Parcelable
+import com.jiangxue.arcgisforandroid.data.xml.WholePicture
+import com.jiangxue.arcgisforandroid.data.xml.XmlPath
 
-/**
- * Created by Jinyu Zhang on 2017/5/5.
- */
-class BaseMap : XmlPath, Parcelable {
+
+class BaseMap : XmlPath,Parcelable{
     /**
      * 用于listview中是否选中（标记状态）
      */
@@ -22,7 +23,7 @@ class BaseMap : XmlPath, Parcelable {
     private var mapPath: String? = null
     private var iconPath: String? = null
     var placeholder: String? = null
-        get() = getCitedPath() + field
+        get() = citedPath + field
     private var wholePicture: WholePicture? = null
     fun setMapType(mapType: String) {
         val type: Int
@@ -35,7 +36,7 @@ class BaseMap : XmlPath, Parcelable {
     }
 
     fun getMapPath(): String {
-        return if (mapType == 1) getCitedPath() + mapPath else mapPath!!
+        return if (mapType == 1) citedPath + mapPath else mapPath!!
     }
 
     fun setMapPath(mapPath: String?) {
@@ -51,7 +52,7 @@ class BaseMap : XmlPath, Parcelable {
     }
 
     fun getIconPath(): String {
-        return getCitedPath() + iconPath
+        return citedPath + iconPath
     }
 
     fun setIconPath(iconPath: String?) {
@@ -81,15 +82,14 @@ class BaseMap : XmlPath, Parcelable {
         wholePicture = `in`.readParcelable(WholePicture::class.java.getClassLoader())
     }
 
-    companion object {
-        val CREATOR: Parcelable.Creator<BaseMap> = object : Parcelable.Creator<BaseMap?> {
-            override fun createFromParcel(source: Parcel): BaseMap {
-                return BaseMap(source)
-            }
+    companion object CREATOR : Parcelable.Creator<BaseMap> {
+        override fun createFromParcel(parcel: Parcel): BaseMap {
+            return BaseMap(parcel)
+        }
 
-            override fun newArray(size: Int): Array<BaseMap> {
-                return arrayOfNulls(size)
-            }
+        override fun newArray(size: Int): Array<BaseMap?> {
+            return arrayOfNulls(size)
         }
     }
+
 }

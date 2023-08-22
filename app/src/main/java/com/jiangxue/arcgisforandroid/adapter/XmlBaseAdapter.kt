@@ -4,9 +4,7 @@ import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 
-/**
- * Created by Jinyu Zhang on 2017/5/2.
- */
+
 abstract class XmlBaseAdapter<T>
 /**
  * 构造方法

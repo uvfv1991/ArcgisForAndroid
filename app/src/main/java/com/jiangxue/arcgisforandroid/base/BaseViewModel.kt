@@ -1,13 +1,14 @@
-package com.aleyn.mvvm.base
+package com.jiangxue.arcgisforandroid.base
 
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.viewModelScope
-import com.aleyn.mvvm.event.Message
-import com.aleyn.mvvm.event.SingleLiveEvent
-import com.aleyn.mvvm.network.ExceptionHandle
-import com.aleyn.mvvm.network.ResponseThrowable
+import com.jiangxue.arcgisforandroid.event.Message
+import com.jiangxue.arcgisforandroid.event.SingleLiveEvent
+import com.jiangxue.arcgisforandroid.network.ResponseThrowable
 import com.blankj.utilcode.util.Utils
+import com.jiangxue.arcgisforandroid.network.ExceptionHandle
+import com.jiangxue.arcgisforandroid.network.IBaseResponse
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

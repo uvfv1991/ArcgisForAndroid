@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 /**
- * Created by Jinyu Zhang on 2017/4/28.
+ * Created by Admin on 2017/4/28.
  */
 class Fieds : Parcelable {
     var fied: List<Fied>? = null
@@ -22,7 +22,8 @@ class Fieds : Parcelable {
     }
 
     companion object {
-        val CREATOR: Parcelable.Creator<Fieds> = object : Parcelable.Creator<Fieds?> {
+        @JvmField
+        val CREATOR: Parcelable.Creator<Fieds?> = object : Parcelable.Creator<Fieds?> {
             override fun createFromParcel(source: Parcel): Fieds? {
                 return Fieds(source)
             }

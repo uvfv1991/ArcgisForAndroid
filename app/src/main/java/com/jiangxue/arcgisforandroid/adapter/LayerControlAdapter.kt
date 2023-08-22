@@ -1,20 +1,31 @@
-package com.jiangxue.arcgisforandroid.adapter
+package com.jiangxue.arcgisforandr
 
-import android.graphics.Color
+import android.os.Parcel
+import android.os.Parcelable
+
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseExpandableListAdapter
 import android.widget.CompoundButton
+import android.widget.ExpandableListView
 import android.widget.ImageView
 import android.widget.TextView
+import com.jiangxue.arcgisforandroid.R
 import com.jiangxue.arcgisforandroid.data.LayerCategoryBean
+import com.jiangxue.arcgisforandroid.data.xml.shpproperties.Shp
+import com.jiangxue.arcgisforandroid.mapview.MapViewHelper
+import com.jiangxue.arcgisforandroid.widge.MapViewObserver
 import com.rey.material.widget.CheckBox
 import com.rey.material.widget.Slider
 import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
 
 /**
- * Created by Jinyu Zhang on 2017/5/5.
  * 图层控制适配器
  */
-class LayerControlAdapter(mapViewObserver: MapViewObserver) : BaseExpandableListAdapter() {
+class LayerControlAdapter(mapViewObserver: MapViewHelper?) : BaseExpandableListAdapter() {
     private var layerCategoryBeanList //所有图层数据
             : List<LayerCategoryBean>? = null
     private var groupViewHolder: GroupViewHolder? = null
@@ -22,16 +33,18 @@ class LayerControlAdapter(mapViewObserver: MapViewObserver) : BaseExpandableList
     private val mapViewObserver: MapViewObserver
 
     init {
-        this.mapViewObserver = mapViewObserver
+        this.mapViewObserver = mapViewObserver!!
     }
 
-    fun setData(layerCategoryBeanList: List<LayerCategoryBean>?) {
+    fun setData(layerCategoryBeanList: List<LayerCategoryBean>) {
         this.layerCategoryBeanList = layerCategoryBeanList
         notifyDataSetChanged()
     }
 
-    val groupCount: Int
-        get() = if (layerCategoryBeanList == null) 0 else layerCategoryBeanList!!.size
+
+    override fun getGroupCount(): Int {
+        return if (layerCategoryBeanList == null) 0 else layerCategoryBeanList!!.size
+    }
 
     override fun getChildrenCount(groupPosition: Int): Int {
         return if (layerCategoryBeanList == null) 0 else if (layerCategoryBeanList!![groupPosition] == null) 0 else layerCategoryBeanList!![groupPosition].getLayers()!!.size
@@ -60,7 +73,7 @@ class LayerControlAdapter(mapViewObserver: MapViewObserver) : BaseExpandableList
     override fun getGroupView(
         groupPosition: Int,
         isExpanded: Boolean,
-        convertView: View,
+        convertView: View?,
         parent: ViewGroup
     ): View {
         var convertView: View? = convertView
@@ -91,7 +104,7 @@ class LayerControlAdapter(mapViewObserver: MapViewObserver) : BaseExpandableList
             group,
             groupPosition
         ).changeCheckStatus(groupViewHolder!!.cb_isChecked)
-        ExpandGroup(groupPosition, isExpanded, convertView, parent, groupViewHolder!!.iv_status)
+        ExpandGroup(groupPosition, isExpanded, convertView!!, parent, groupViewHolder!!.iv_status)
         return convertView
     }
 
@@ -126,18 +139,21 @@ class LayerControlAdapter(mapViewObserver: MapViewObserver) : BaseExpandableList
         }
     }
 
-    override fun getChildView(
+  /*  override fun getChildView(p0: Int, p1: Int, p2: Boolean, p3: View?, p4: ViewGroup?): View {
+        TODO("Not yet implemented")
+    }*/
+   override fun getChildView(
         groupPosition: Int,
         childPosition: Int,
         isLastChild: Boolean,
-        convertView: View,
-        parent: ViewGroup
+        convertView: View?,
+        parent: ViewGroup?
     ): View {
         var convertView: View? = convertView
         childViewHolder = null
         if (convertView == null) {
             childViewHolder = ChildViewHolder()
-            convertView = LayoutInflater.from(parent.getContext())
+            convertView = LayoutInflater.from(parent?.getContext() )
                 .inflate(R.layout.item_layer_control_child, null)
             childViewHolder!!.tv_name = convertView.findViewById<View>(R.id.tv_name) as TextView
             childViewHolder!!.iv_full = convertView.findViewById<View>(R.id.iv_full) as ImageView
@@ -154,34 +170,12 @@ class LayerControlAdapter(mapViewObserver: MapViewObserver) : BaseExpandableList
             childViewHolder = convertView.tag as ChildViewHolder
         }
         val child: Shp = getChild(groupPosition, childPosition)
-        childViewHolder!!.tv_name.setText(child.getName())
+        childViewHolder!!.tv_name?.text=child.name
         childViewHolder!!.cb_isChecked!!.setOnCheckedChangeListener(null)
-        childViewHolder!!.cb_isChecked!!.setCheckedImmediately(child.isChecked())
+        childViewHolder!!.cb_isChecked!!.setCheckedImmediately(child.isChecked)
         //Glide.with(parent.getContext()).load(child.getIconPath()).placeholder(R.mipmap.icon_setting_info).into(childViewHolder.layer_icon);
-        val childStatusManage =
-            ChildStatusManage(groupPosition, childPosition, layerCategoryBeanList)
-        childStatusManage.changeCheckStatus(
-            childViewHolder!!.cb_isChecked,
-            childViewHolder!!.iv_full,
-            childViewHolder!!.iv_color_setting,
-            childViewHolder!!.slider_alpha
-        )
-        childStatusManage.full(childViewHolder!!.iv_full)
-        if (childViewHolder!!.cb_isChecked!!.isChecked) {
-            //childViewHolder.iv_full.setVisibility(View.VISIBLE);
-            childViewHolder!!.slider_alpha!!.visibility = View.VISIBLE
-            if (child.isContainTpk()) {
-                childViewHolder!!.iv_color_setting!!.visibility = View.GONE
-            } else {
-                childViewHolder!!.iv_color_setting!!.visibility = View.GONE
-            }
-        } else {
-            //childViewHolder.slider_alpha.setVisibility(View.GONE);
-            //childViewHolder.iv_full.setVisibility(View.GONE);
-            childViewHolder!!.iv_color_setting!!.visibility = View.GONE
-        }
-        childStatusManage.onColorSetting(childViewHolder!!.iv_color_setting)
-        return convertView
+
+        return convertView!!
     }
 
     private inner class GroupChangeCheckStatus(
@@ -197,101 +191,22 @@ class LayerControlAdapter(mapViewObserver: MapViewObserver) : BaseExpandableList
             //点击选中显示所有的shp格式
             group.setChecked(isChecked)
             for (shp in group.getLayers()!!) {
-                shp.setChecked(isChecked)
+                shp.isChecked=isChecked
             }
             val layers: List<Shp>? = layerCategoryBeanList!![groupPosition].getLayers()
-            for (shp in layers) {
-                Observable.create<ActionGuide>(object : ObservableOnSubscribe<ActionGuide?> {
-                    @Throws(Exception::class)
+            for (shp in layers!!) {
+
+                Observable.create(object : ObservableOnSubscribe<ActionGuide> {
                     override fun subscribe(e: ObservableEmitter<ActionGuide>) {
                         e.onNext(ActionGuide(shp, if (isChecked) 1 else 2))
                     }
-                }).subscribeOn(AndroidSchedulers.mainThread()).observeOn(Schedulers.newThread())
-                    .subscribe(mapViewObserver)
+
+                }).subscribe(mapViewObserver)
             }
             this@LayerControlAdapter.notifyDataSetChanged()
         }
     }
 
-    private inner class ChildStatusManage(
-        groupPosition: Int?,
-        childPosition: Int?,
-        layerCategoryBeanList: List<LayerCategoryBean>?
-    ) : CompoundButton.OnCheckedChangeListener, View.OnClickListener, OnPositionChangeListener {
-        private val shp: Shp
-        private var fullView: View? = null
-        private var colorSetView: View? = null
-        private var slider: Slider? = null
-
-        init {
-            shp = layerCategoryBeanList!![groupPosition!!].getLayers()!![childPosition!!]
-        }
-
-        fun changeCheckStatus(
-            radioButton: CheckBox?,
-            fullView: View?,
-            colorSetView: View?,
-            slider: Slider?
-        ) {
-            this.fullView = fullView
-            this.colorSetView = colorSetView
-            this.slider = slider
-            radioButton!!.setOnCheckedChangeListener(this)
-            slider!!.setOnPositionChangeListener(this)
-        }
-
-        fun full(view: View?) {
-            view!!.setOnClickListener(this)
-        }
-
-        override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
-            Observable.create<ActionGuide>(object : ObservableOnSubscribe<ActionGuide?> {
-                @Throws(Exception::class)
-                override fun subscribe(e: ObservableEmitter<ActionGuide>) {
-                    shp.setChecked(isChecked)
-                    e.onNext(ActionGuide(shp, if (isChecked) 1 else 2))
-                }
-            }).subscribeOn(AndroidSchedulers.mainThread()).observeOn(Schedulers.newThread())
-                .subscribe(mapViewObserver)
-        }
-
-        override fun onClick(v: View) {
-            if (layerControlListener == null) {
-                return
-            }
-            when (v.id) {
-                R.id.iv_full -> layerControlListener.wholePicture(shp)
-                R.id.iv_color_setting -> layerControlListener.colorSet(shp)
-            }
-        }
-
-        fun onColorSetting(view: View?) {
-            view!!.setOnClickListener(this)
-        }
-
-        private fun updateColorWithAlpha(color: Int, alpha: Int): Int {
-            val red = color and 0xff0000 shr 16
-            val green = color and 0x00ff00 shr 8
-            val blue = color and 0x0000ff
-            return Color.argb(alpha, red, green, blue)
-        }
-
-        override fun onPositionChanged(
-            view: Slider,
-            fromUser: Boolean,
-            oldPos: Float,
-            newPos: Float,
-            oldValue: Int,
-            newValue: Int
-        ) {
-            if (shp.isContainTpk()) {
-                if ((mapViewObserver as MapViewHelper).getTpkLayer(shp) != null) {
-                    (mapViewObserver as MapViewHelper).getTpkLayer(shp)
-                        .setOpacity(newValue * 1f / 255)
-                }
-            }
-        }
-    }
 
     override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean {
         return true
@@ -329,17 +244,17 @@ class LayerControlAdapter(mapViewObserver: MapViewObserver) : BaseExpandableList
         }
 
         val layerId: Long
-            get() = shp.getId()
+            get() = shp.id
         val color: Int
             get() = shp.getLayerColor()
         val isContainTpk: Boolean
-            get() = shp.isContainTpk()
+            get() = shp.isContainTpk
         val tpkId: Long
-            get() = shp.getTpkId()
+            get() = shp.tpkId
         val tpkName: String
-            get() = shp.getTpkName()
+            get() = shp.tpkName.toString()
         val layerName: String
-            get() = shp.getName()
+            get() = shp.name.toString()
 
         override fun describeContents(): Int {
             return 0
@@ -351,18 +266,19 @@ class LayerControlAdapter(mapViewObserver: MapViewObserver) : BaseExpandableList
         }
 
         protected constructor(`in`: Parcel) {
-            shp = `in`.readParcelable(Shp::class.java.getClassLoader())
+            shp = `in`.readParcelable(Shp::class.java.getClassLoader())!!
             guide = `in`.readInt()
         }
 
         companion object {
-            val CREATOR: Parcelable.Creator<ActionGuide> =
+            @JvmField
+            val CREATOR: Parcelable.Creator<ActionGuide?> =
                 object : Parcelable.Creator<ActionGuide?> {
                     override fun createFromParcel(source: Parcel): ActionGuide {
                         return ActionGuide(source)
                     }
 
-                    override fun newArray(size: Int): Array<ActionGuide> {
+                    override fun newArray(size: Int): Array<ActionGuide?> {
                         return arrayOfNulls(size)
                     }
                 }

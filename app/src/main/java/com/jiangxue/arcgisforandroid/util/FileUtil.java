@@ -1,4 +1,4 @@
-package haoyuan.com.qianguoqualitysafety.utils;
+package com.jiangxue.arcgisforandroid.util;
 
 
 import android.text.TextUtils;

@@ -1,9 +1,11 @@
 package com.jiangxue.arcgisforandroid.data.xml.properties
 
-import haoyuan.com.qianguoqualitysafety.pojo.xml.XmlPath
+import android.os.Parcel
+import android.os.Parcelable
+import com.jiangxue.arcgisforandroid.data.xml.XmlPath
 
 /**
- * Created by Jinyu Zhang on 2017/5/4.
+ * Created by Admin on 2017/5/4.
  * Shp文件类别
  */
 class ShpCategory : XmlPath, Parcelable {
@@ -12,8 +14,8 @@ class ShpCategory : XmlPath, Parcelable {
         return categories
     }
 
-    fun addCategorie(category: Category) {
-        categories.add(category)
+    fun addCategorie(category: Category?) {
+        categories.add(category!!)
     }
 
     override fun describeContents(): Int {
@@ -26,16 +28,17 @@ class ShpCategory : XmlPath, Parcelable {
 
     constructor() {}
     protected constructor(`in`: Parcel) {
-        categories = `in`.createTypedArrayList<Category>(Category.Companion.CREATOR)
+        categories = `in`.createTypedArrayList<Category>(Category.CREATOR)!!
     }
 
     companion object {
-        val CREATOR: Parcelable.Creator<ShpCategory> = object : Parcelable.Creator<ShpCategory?> {
+        @JvmField
+        val CREATOR: Parcelable.Creator<ShpCategory?> = object : Parcelable.Creator<ShpCategory?> {
             override fun createFromParcel(source: Parcel): ShpCategory {
                 return ShpCategory(source)
             }
 
-            override fun newArray(size: Int): Array<ShpCategory> {
+            override fun newArray(size: Int): Array<ShpCategory?> {
                 return arrayOfNulls(size)
             }
         }

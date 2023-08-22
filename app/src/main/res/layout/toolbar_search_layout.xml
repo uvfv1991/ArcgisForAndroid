@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="112px"
     android:minHeight="112px"
-    android:background="@color/colorPrimary"
+    android:background="@color/design_default_color_primary"
     android:gravity="center"
     android:orientation="horizontal">
     <LinearLayout
@@ -21,7 +21,7 @@
             android:minWidth="40dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:drawableLeft="@mipmap/icon_back"
+            android:drawableLeft="@mipmap/ic_back"
             android:text="返回"
             android:textColor="#ffffff"
             android:textSize="12sp"/>

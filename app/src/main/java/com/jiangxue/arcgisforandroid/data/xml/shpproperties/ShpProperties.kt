@@ -1,9 +1,11 @@
 package com.jiangxue.arcgisforandroid.data.xml.shpproperties
 
-import haoyuan.com.qianguoqualitysafety.pojo.xml.XmlPath
+import android.os.Parcel
+import android.os.Parcelable
+import com.jiangxue.arcgisforandroid.data.xml.XmlPath
 
 /**
- * Created by Jinyu Zhang on 2017/5/5.
+ * Created by Admin
  */
 class ShpProperties : XmlPath, Parcelable {
     private var shps: MutableList<Shp> = ArrayList()
@@ -25,17 +27,18 @@ class ShpProperties : XmlPath, Parcelable {
 
     constructor() {}
     protected constructor(`in`: Parcel) {
-        shps = `in`.createTypedArrayList<Shp>(Shp.Companion.CREATOR)
+        shps = `in`.createTypedArrayList<Shp>(Shp.Companion.CREATOR)!!
     }
 
     companion object {
-        val CREATOR: Parcelable.Creator<ShpProperties> =
+        @JvmField
+        val CREATOR: Parcelable.Creator<ShpProperties?> =
             object : Parcelable.Creator<ShpProperties?> {
                 override fun createFromParcel(source: Parcel): ShpProperties {
                     return ShpProperties(source)
                 }
 
-                override fun newArray(size: Int): Array<ShpProperties> {
+                override fun newArray(size: Int): Array<ShpProperties?> {
                     return arrayOfNulls(size)
                 }
             }

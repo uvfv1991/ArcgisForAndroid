@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.eyepetizer.android.util
+package com.jiangxue.arcgisforandroid.util
 
 import android.app.Activity
 import java.lang.ref.WeakReference
@@ -44,7 +44,8 @@ object ActivityCollector {
      *
      * @param task
      */
-    fun removeTask(task: WeakReference<Activity>?) {
+
+    fun rmoveTask(task: WeakReference<Activity>?) {
         activitys.remove(task)
     }
 
@@ -82,5 +83,7 @@ object ActivityCollector {
             }
         }
     }
+
+
 
 }

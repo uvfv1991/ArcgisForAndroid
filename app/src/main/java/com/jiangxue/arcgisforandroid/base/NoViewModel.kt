@@ -1,4 +1,4 @@
-package com.aleyn.mvvm.base
+package com.jiangxue.arcgisforandroid.base
 
 /**
  *   @auther : Aleyn

@@ -1,12 +1,17 @@
 package com.jiangxue.arcgisforandroid.data.xml.shpproperties
 
 import android.graphics.Color
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
-import haoyuan.com.qianguoqualitysafety.pojo.xml.WholePicture
+import com.blankj.utilcode.util.ColorUtils
+import com.blankj.utilcode.util.StringUtils
+import com.jiangxue.arcgisforandroid.data.xml.WholePicture
+import com.jiangxue.arcgisforandroid.data.xml.XmlPath
 import java.io.File
 
 /**
- * Created by Jinyu Zhang on 2017/5/5.
+ * Created by Admin on 2017/5/5.
  */
 class Shp : XmlPath, Parcelable {
     /**
@@ -29,7 +34,7 @@ class Shp : XmlPath, Parcelable {
     private var lineWidth: String? = null
     private var wholePicture: WholePicture? = null
     fun getTpkPath(): String {
-        return getCitedPath() + tpkPath
+        return citedPath + tpkPath
     }
 
     fun setTpkPath(tpkPath: String?) {
@@ -37,7 +42,7 @@ class Shp : XmlPath, Parcelable {
     }
 
     fun getShpPath(): String {
-        return getCitedPath() + shpPath
+        return citedPath + shpPath
     }
 
     fun setShpPath(shpPath: String?) {
@@ -50,7 +55,7 @@ class Shp : XmlPath, Parcelable {
             if (file.exists()) {
                 val fileName = file.name
                 val filePrefix = fileName.substring(fileName.lastIndexOf(".") + 1)
-                if (!Check.isEmpty(filePrefix)) {
+                if (!StringUtils.isEmpty(filePrefix)) {
                     if (filePrefix.contains("geodatabase")) {
                         return ShpType.GEO_DATABASE
                     } else if (filePrefix.contains("shp")) {
@@ -63,7 +68,7 @@ class Shp : XmlPath, Parcelable {
         }
 
     fun getShpConfigPath(): String {
-        return getCitedPath() + shpConfigPath
+        return citedPath + shpConfigPath
     }
 
     fun setShpConfigPath(shpConfigPath: String?) {
@@ -71,7 +76,7 @@ class Shp : XmlPath, Parcelable {
     }
 
     fun getIconPath(): String {
-        return getCitedPath() + iconPath
+        return citedPath + iconPath
     }
 
     fun setIconPath(iconPath: String?) {
@@ -87,9 +92,9 @@ class Shp : XmlPath, Parcelable {
             Color.parseColor(layerColorString)
         } catch (e: Exception) {
             Log.e("eee", "getLayerColor is exception !!!!! layerColor ==== " + layerColorString)
-            RandomColor().randomColor()
+
         }
-        setLayerColor(ColorUtils.getColorToRGBWithAlpha(resultColor))
+        //setLayerColor(ColorUtils.getRandomColor(resultColor).toString())
         return resultColor
     }
 
@@ -97,15 +102,7 @@ class Shp : XmlPath, Parcelable {
         layerColorString = layerColor
     }
 
-    fun getLineColor(): Int {
-        val resultColor: Int
-        resultColor = try {
-            Color.parseColor(lineColor)
-        } catch (e: Exception) {
-            RandomColor().randomColor()
-        }
-        return resultColor
-    }
+
 
     fun setLineColor(lineColor: String?) {
         this.lineColor = lineColor
@@ -193,12 +190,13 @@ class Shp : XmlPath, Parcelable {
     }
 
     companion object {
-        val CREATOR: Parcelable.Creator<Shp> = object : Parcelable.Creator<Shp?> {
+        @JvmField
+        val CREATOR: Parcelable.Creator<Shp?> = object : Parcelable.Creator<Shp?> {
             override fun createFromParcel(source: Parcel): Shp {
                 return Shp(source)
             }
 
-            override fun newArray(size: Int): Array<Shp> {
+            override fun newArray(size: Int): Array<Shp?> {
                 return arrayOfNulls(size)
             }
         }

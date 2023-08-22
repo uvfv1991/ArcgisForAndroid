@@ -1,7 +1,7 @@
 package com.jiangxue.arcgisforandroid.data.xml.shpproperties
 
 /**
- * Created by Jinyu Zhang on 2017/5/13.
+ * Created by Admin
  */
 enum class ShpType(private val type: Int) {
     SHP_TYPR(0), GEO_DATABASE(1);

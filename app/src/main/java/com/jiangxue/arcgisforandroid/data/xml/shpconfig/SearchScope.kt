@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 /**
- * Created by Jinyu Zhang on 2017/5/10.
+ * Created by Admin on 2017/5/10.
  */
 class SearchScope : Parcelable {
     var minScope = 0.0
@@ -36,7 +36,8 @@ class SearchScope : Parcelable {
     }
 
     companion object {
-        val CREATOR: Parcelable.Creator<SearchScope> = object : Parcelable.Creator<SearchScope?> {
+        @JvmField
+        val CREATOR: Parcelable.Creator<SearchScope?> = object : Parcelable.Creator<SearchScope?> {
             override fun createFromParcel(source: Parcel): SearchScope? {
                 return SearchScope(source)
             }

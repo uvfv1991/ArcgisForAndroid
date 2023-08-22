@@ -14,8 +14,6 @@ import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 
 /**
- * Created by LiuTing on 2019/3/5.
- *
  * 内存工具类
  */
 object StorageUtils {
@@ -215,7 +213,8 @@ object StorageUtils {
         }
 
         companion object {
-            val CREATOR: Parcelable.Creator<StorageBean> =
+            @JvmField
+            val CREATOR: Parcelable.Creator<StorageBean?> =
                 object : Parcelable.Creator<StorageBean?> {
                     override fun createFromParcel(source: Parcel): StorageBean? {
                         return StorageBean(source)

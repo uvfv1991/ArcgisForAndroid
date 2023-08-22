@@ -1,15 +1,16 @@
 package com.jiangxue.arcgisforandroid.helper
 
 import io.reactivex.Observer
+import io.reactivex.annotations.NonNull
+import io.reactivex.annotations.Nullable
 import io.reactivex.disposables.Disposable
 
 /**
- * Created by Jinyu Zhang on 2017/5/2.
  * 异步监听类
  */
 abstract class AsyncObserver<T> : Observer<T> {
     override fun onSubscribe(d: Disposable) {}
-    override fun onNext(t: T) {
+    override fun onNext(@NonNull t: T) {
         onSuccess(t)
     }
 

@@ -1,4 +1,4 @@
-package com.aleyn.mvvm.event
+package com.jiangxue.arcgisforandroid.event
 
 /**
  *   @auther : Aleyn

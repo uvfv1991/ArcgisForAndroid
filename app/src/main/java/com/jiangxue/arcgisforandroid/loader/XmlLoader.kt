@@ -1,11 +1,14 @@
 package com.jiangxue.arcgisforandroid.loader
 
-import haoyuan.com.qianguoqualitysafety.adapter.XmlBaseAdapter
+import com.jiangxue.arcgisforandroid.adapter.XmlBaseAdapter
+import com.jiangxue.arcgisforandroid.adapter.XmlParser
+import com.jiangxue.arcgisforandroid.helper.AsyncObserver
+import org.xmlpull.v1.XmlPullParserException
 import java.io.FileNotFoundException
 import java.io.IOException
 
+
 /**
- * Created by Jinyu Zhang on 2017/5/5.
  * 配置文件加载器
  */
 class XmlLoader private constructor() {
@@ -13,24 +16,24 @@ class XmlLoader private constructor() {
         if (null != instance) throw RuntimeException("this is singleton.")
     }
 
-    interface LoaderCallback<T> {
-        fun loadSuccess(t: T)
-        fun loadError(errorMsg: String?)
+    interface LoaderCallback<Any> {
+        fun loadSuccess(t: Any)
+        fun loadError(errorMsg: String)
     }
 
-    fun <T> load(
+    fun <T : Any> load(
         filePath: String,
-        xmlBaseAdapter: XmlBaseAdapter?,
-        tLoaderCallback: LoaderCallback<T>?
+        xmlBaseAdapter: XmlBaseAdapter<*>?,
+        tLoaderCallback: LoaderCallback<T>?,
     ) {
         if (tLoaderCallback == null) {
             return
         }
         try {
-            val tXmlParser: XmlParser<T> = XmlParser()
-            tXmlParser.setAdapter(xmlBaseAdapter)
+            val tXmlParser = XmlParser<T>()
+            tXmlParser.setAdapter(xmlBaseAdapter as XmlBaseAdapter<T>)
             tXmlParser.asyncParse(filePath, object : AsyncObserver<T>() {
-                fun onSuccess(t: T) {
+                override fun onSuccess(t: T) {
                     tLoaderCallback.loadSuccess(t)
                 }
             })
@@ -44,9 +47,9 @@ class XmlLoader private constructor() {
     }
 
     @Throws(XmlPullParserException::class, IOException::class)
-    fun <T> load(filePath: String?, xmlBaseAdapter: XmlBaseAdapter<T>?): T {
-        val tXmlParser: XmlParser<T> = XmlParser()
-        tXmlParser.setAdapter(xmlBaseAdapter)
+    fun <T : Any> load(filePath: String?, xmlBaseAdapter: XmlBaseAdapter<T>?): Any {
+        val tXmlParser = XmlParser<T>()
+        tXmlParser.setAdapter(xmlBaseAdapter!!)
         return tXmlParser.parse(filePath)
     }
 

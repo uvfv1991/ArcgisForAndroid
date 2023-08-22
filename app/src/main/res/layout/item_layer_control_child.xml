@@ -20,7 +20,7 @@
             android:paddingBottom="5dp"
             android:paddingRight="10dp"
             android:paddingTop="5dp"
-            app:cbd_strokeColor="@color/colorPrimary" />
+            app:cbd_strokeColor="@color/design_default_color_primary" />
 
         <ImageView
             android:id="@+id/iv_full"
@@ -82,7 +82,7 @@
         android:paddingRight="10dp"
         app:sl_maxValue="255"
         app:sl_minValue="0"
-        app:sl_secondaryColor="@color/colorPrimary"
+        app:sl_secondaryColor="@color/material_on_primary_disabled"
         app:sl_value="255" />
 
 </LinearLayout>

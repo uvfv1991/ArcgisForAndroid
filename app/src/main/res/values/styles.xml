@@ -20,7 +20,6 @@
         <item name="android:button">@null</item>
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
-        <item name="android:textColor">@color/sel_setting_switch_text_color</item>
         <item name="android:textSize">15sp</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
@@ -53,7 +52,6 @@
         <item name="android:paddingBottom">1dp</item>
         <item name="android:layout_marginEnd">5dp</item>
         <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:background">@drawable/shape_time_radius_black_2dp_bg</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/gray</item>
         <item name="typeface">dinTypeface</item>
@@ -62,9 +60,7 @@
     <style name="Eyepetizer.FollowTextView">
         <item name="android:layout_width">44dp</item>
         <item name="android:layout_height">22dp</item>
-        <item name="android:background">@drawable/shape_follow_radius_black_2dp_bg</item>
         <item name="android:gravity">center</item>
-        <item name="android:text">@string/plus_follow</item>
         <item name="android:textSize">10sp</item>
         <item name="typeface">fzdb1Typeface</item>
     </style>

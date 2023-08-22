@@ -5,15 +5,15 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import haoyuan.com.qianguoqualitysafety.R
+import android.widget.RelativeLayout
+import com.blankj.utilcode.util.ScreenUtils
+import com.jiangxue.arcgisforandroid.R
 
-/**
- * Created by Jinyu Zhang on 2017/5/4.
- */
+
 class ActionView @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : RelativeLayout(context, attrs, defStyleAttr) {
     interface DismissListener {
         fun dismiss()
@@ -22,28 +22,9 @@ class ActionView @JvmOverloads constructor(
     }
 
     private val layoutParams: RelativeLayout.LayoutParams
-    private val inAnim: Animation
-    private val outAnim: Animation
     var isShowing = false
         private set
 
-    fun setDeafult() {
-        layoutParams.width = (WHUtils.getScreenWidth(getContext()) / 3f)
-        layoutParams.height = RelativeLayout.LayoutParams.MATCH_PARENT
-    }
-
-    fun setBig() {
-        layoutParams.width = (WHUtils.getScreenWidth(getContext()) / 2.5f)
-        layoutParams.height = RelativeLayout.LayoutParams.MATCH_PARENT
-    }
-
-    fun setWidth(width: Int) {
-        layoutParams.width = width
-    }
-
-    fun setHeight(height: Int) {
-        layoutParams.height = height
-    }
 
     @Synchronized
     fun showView(view: View?) {
@@ -52,19 +33,24 @@ class ActionView @JvmOverloads constructor(
 
     var showView: View? = null
         private set
-
+    private var inAnim: Animation? = null
+    private var outAnim: Animation? = null
     init {
         layoutParams = RelativeLayout.LayoutParams(
-            (WHUtils.getScreenWidth(context) / 3f) as Int,
+            (ScreenUtils.getScreenWidth() / 3) as Int,
             RelativeLayout.LayoutParams.MATCH_PARENT
         )
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
         layoutParams.setMargins(0, 10, 10, 10)
-        setClickable(false)
-        inAnim = AnimationUtils.loadAnimation(getContext(), R.anim.da_slide_in_right)
-        outAnim = AnimationUtils.loadAnimation(getContext(), R.anim.anim_scale_out)
+        setClickable(false);
+       inAnim= AnimationUtils.loadAnimation(getContext(), R.anim.da_slide_in_right)
+         outAnim=AnimationUtils.loadAnimation(getContext(), R.anim.anim_scale_out)
     }
 
+    fun setDeafult() {
+        layoutParams.width = (ScreenUtils.getScreenWidth() / 3)
+        layoutParams.height = LayoutParams.MATCH_PARENT
+    }
     fun showView(view: View?, isDismissBefore: Boolean, isCallOut: Boolean) {
         if (isCallOut) {
             removeAllViews()
@@ -77,7 +63,6 @@ class ActionView @JvmOverloads constructor(
             return
         }
         if (getChildCount() == 0) {
-            view.startAnimation(inAnim)
             addView(view)
             view.layoutParams = layoutParams
         } else {
@@ -110,7 +95,7 @@ class ActionView @JvmOverloads constructor(
     }
 
     fun dismissView(view: View, newView: View?) {
-        outAnim.setAnimationListener(object : Animation.AnimationListener {
+        outAnim?.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
             override fun onAnimationEnd(animation: Animation) {
                 removeView(view)

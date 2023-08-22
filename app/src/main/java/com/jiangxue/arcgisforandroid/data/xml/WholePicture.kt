@@ -3,9 +3,7 @@ package com.jiangxue.arcgisforandroid.data.xml
 import android.os.Parcel
 import android.os.Parcelable
 
-/**
- * Created by Jinyu Zhang on 2017/5/10.
- */
+
 class WholePicture : Parcelable {
     private var xMin = 0.0
     private var yMin = 0.0
@@ -70,7 +68,8 @@ class WholePicture : Parcelable {
     }
 
     companion object {
-        val CREATOR: Parcelable.Creator<WholePicture> = object : Parcelable.Creator<WholePicture?> {
+        @JvmField
+        val CREATOR: Parcelable.Creator<WholePicture?> = object : Parcelable.Creator<WholePicture?> {
             override fun createFromParcel(source: Parcel): WholePicture? {
                 return WholePicture(source)
             }

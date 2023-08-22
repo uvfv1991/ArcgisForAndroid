@@ -1,8 +1,9 @@
-package com.aleyn.mvvm.network
+package com.jiangxue.arcgisforandroid.network
 
 import android.net.ParseException
 import com.google.gson.JsonParseException
 import com.google.gson.stream.MalformedJsonException
+import com.jiangxue.arcgisforandroid.network.ResponseThrowable
 import org.json.JSONException
 import retrofit2.HttpException
 import java.net.ConnectException

@@ -1,4 +1,4 @@
-package com.aleyn.mvvm.network.interceptor
+package com.jiangxue.arcgisforandroid.network
 
 import android.text.TextUtils
 import com.blankj.utilcode.util.JsonUtils

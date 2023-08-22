@@ -1,19 +1,20 @@
-package com.jiangxue.arcgisforandroid.adapter
+package com.jiangxue. arcgisforandroid.adapter
 
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.jiangxue.arcgisforandroid.R
+import com.jiangxue.arcgisforandroid.adapter.BaseAdapter
+import com.jiangxue.arcgisforandroid.data.xml.properties.BaseMap
 
-/**
- * Created by LiuT on 2017/5/5.
- */
+
 class BaseMapAdapter(context: Context?) : BaseAdapter<BaseMap?>(context) {
     fun setSelection(position: Int) {
         selectPosition = position
-        val positionBaseMap: BaseMap = getData().get(position)
-        for (baseMap in getData()) {
-            baseMap.setChecked(positionBaseMap.equals(baseMap))
+        val positionBaseMap: BaseMap? = data?.get(position)
+        for (baseMap in data!!) {
+            baseMap?.isChecked ?: (positionBaseMap?.equals(baseMap))
         }
         notifyDataSetChanged()
     }
@@ -27,19 +28,21 @@ class BaseMapAdapter(context: Context?) : BaseAdapter<BaseMap?>(context) {
         this.selectCallback = selectCallback
     }
 
-    val contentView: Int
+    override val contentView: Int
         get() = R.layout.item_basemap_change
 
-    fun onInitView(view: View, baseMap: BaseMap, position: Int) {
-        view.setBackgroundResource(if (baseMap.isChecked()) R.color.colorAccent else R.color.colorTranslucent)
-        val nameTextView: TextView = get(view, R.id.baseMap_name)
-        val imageView: ImageView = get(view, R.id.baseMap_icon)
-        nameTextView.setText(baseMap.getName())
+    override fun onInitView(view: View?, t: BaseMap?, position: Int) {
+        view?.setBackgroundResource(R.color.colorAccent)
+        val nameTextView: TextView = get(view!!, R.id.baseMap_name)!!
+        val imageView: ImageView = get(view, R.id.baseMap_icon)!!
+        nameTextView.setText(t?.name)
         //Glide.with(context).load(baseMap.getIconPath()).placeholder(R.mipmap.ic_launcher).into(imageView);
-        ClickHolder(view, baseMap, position)
+        ClickHolder(view, t, position)
     }
 
-    private inner class ClickHolder(view: View, baseMap: BaseMap, position: Int) :
+
+
+    private inner class ClickHolder(view: View, baseMap: BaseMap?, position: Int) :
         View.OnClickListener {
         private val position: Int
         private val baseMap: BaseMap
@@ -47,11 +50,11 @@ class BaseMapAdapter(context: Context?) : BaseAdapter<BaseMap?>(context) {
         init {
             view.setOnClickListener(this)
             this.position = position
-            this.baseMap = baseMap
+            this.baseMap = baseMap!!
         }
 
         override fun onClick(v: View) {
-            if (!baseMap.isChecked()) {
+            if (!baseMap.isChecked) {
                 if (selectCallback != null) {
                     selectCallback!!.select(position)
                     setSelection(position)

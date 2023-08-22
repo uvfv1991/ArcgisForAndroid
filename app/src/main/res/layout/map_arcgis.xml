@@ -22,10 +22,6 @@
             android:id="@+id/maptoolbar"
             layout="@layout/toolbar_map_layout"/>
 
-        <include
-            android:id="@+id/mapping_search_layout"
-            android:visibility="gone"
-            layout="@layout/toolbar_search_layout"/>
 
         <RelativeLayout
             android:id="@+id/toolsLayout"
@@ -100,13 +96,6 @@
                 android:clickable="true"
                 android:layout_height="40dp" />
 
-            <haoyuan.com.qianguoqualitysafety.widge.ZoomAndLocationView
-                android:id="@+id/zoom_location_view"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentBottom="true"
-                android:visibility="gone"
-                android:clickable="false" />
 
             <TextView
                 android:id="@+id/settingButton"
@@ -133,11 +122,10 @@
 
             </LinearLayout>
 
-            <haoyuan.com.qianguoqualitysafety.widge.ActionView
+            <com.jiangxue.arcgisforandroid.widge.ActionView
                 android:id="@+id/action_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
+                android:layout_height="match_parent" />
             <Button
                 android:id="@+id/btn_inspection_record"
                 android:layout_width="90dp"
@@ -253,7 +241,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             fab:menu_animationDelayPerItem="1"
-            fab:menu_colorNormal="?attr/colorPrimary"
+            app:fab_colorNormal="?attr/colorPrimary"
+            app:fab_colorPressed="?attr/colorPrimaryDark"
+            app:fab_size="mini"
             fab:menu_fab_size="mini"
             fab:menu_icon="@drawable/ic_baseline_work_24">
 
@@ -274,8 +264,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_insights_24"
-                app:fab_colorNormal="?attr/colorPrimary"
-                app:fab_colorPressed="?attr/colorPrimaryDark"
                 app:layout_constraintBottom_toTopOf="@+id/btn_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:fab_size="mini"
@@ -285,10 +273,8 @@
                 android:id="@+id/fab_query"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_search_24"
+                android:src="@drawable/ic_baseline_insights_24"
                 android:visibility="gone"
-                app:fab_colorNormal="?attr/colorPrimary"
-                app:fab_colorPressed="?attr/colorPrimaryDark"
                 app:fab_size="mini"
                 fab:fab_label="查询" />
 
@@ -296,10 +282,8 @@
                 android:id="@+id/fab_del_feature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_delete_forever_white_24"
+                android:src="@drawable/ic_baseline_insights_24"
                 android:visibility="gone"
-                app:fab_colorNormal="?attr/colorPrimary"
-                app:fab_colorPressed="?attr/colorPrimaryDark"
                 app:fab_size="mini"
                 fab:fab_label="删除" />
 
@@ -308,9 +292,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:src="@drawable/ic_baseline_menu_book_24"
-                app:fab_colorNormal="?attr/colorPrimary"
-                app:fab_colorPressed="?attr/colorPrimaryDark"
+                android:src="@drawable/ic_baseline_insights_24"
                 app:fab_size="mini"
                 fab:fab_label="菜单" />
 
@@ -318,9 +300,8 @@
                 android:id="@+id/fab_sumbmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/submit"
-                app:fab_colorNormal="?attr/colorPrimary"
-                app:fab_colorPressed="?attr/colorPrimaryDark"
+                android:src="@drawable/ic_baseline_insights_24"
+
                 app:fab_size="mini"
                 fab:fab_label="完成并提交" />
 
@@ -349,8 +330,6 @@
 
                     android:layout_alignParentLeft="true"
                     android:src="@drawable/ic_baseline_delete_forever_white_24"
-                    app:fab_colorNormal="?attr/colorPrimary"
-                    app:fab_colorPressed="?attr/colorPrimaryDark"
                     app:fab_size="mini"/>
 
                 <com.github.clans.fab.FloatingActionButton
@@ -359,8 +338,6 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/submit"
                     android:visibility="gone"
-                    app:fab_colorNormal="?attr/colorPrimary"
-                    app:fab_colorPressed="?attr/colorPrimaryDark"
                     app:fab_size="mini"/>
 
                 <com.github.clans.fab.FloatingActionButton
@@ -368,8 +345,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_undo_24"
-                    app:fab_colorNormal="?attr/colorPrimary"
-                    app:fab_colorPressed="?attr/colorPrimaryDark"
                     app:fab_size="mini"/>
 
                 <com.github.clans.fab.FloatingActionButton
@@ -377,8 +352,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_redo_24"
-                    app:fab_colorNormal="?attr/colorPrimary"
-                    app:fab_colorPressed="?attr/colorPrimaryDark"
                     app:fab_size="mini"/>
 
                 <com.github.clans.fab.FloatingActionButton
@@ -386,8 +359,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_check_24"
-                    app:fab_colorNormal="?attr/colorPrimary"
-                    app:fab_colorPressed="?attr/colorPrimaryDark"
                     android:visibility="gone"
                     app:fab_size="mini"/>
 

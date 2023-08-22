@@ -1,8 +1,14 @@
 package com.jiangxue.arcgisforandroid.adapter
 
 import android.util.Xml
+import com.blankj.utilcode.util.StringUtils
 import com.jiangxue.arcgisforandroid.helper.AsyncObserver
+import com.jiangxue.arcgisforandroid.mapview.Async
+import com.jiangxue.arcgisforandroid.mapview.AsyncTask
+import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.Observer
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.File
@@ -11,10 +17,9 @@ import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
 
-/**
- * Created by Jinyu Zhang on 2017/5/2.
- */
-class XmlParser<T> {
+
+
+class XmlParser<T : Any> {
     private val xmlPullParser: XmlPullParser?
     private var xmlBaseAdapter: XmlBaseAdapter<T>? = null
 
@@ -22,27 +27,30 @@ class XmlParser<T> {
         xmlPullParser = Xml.newPullParser()
     }
 
-    fun setAdapter(adapter: XmlBaseAdapter<*>?) {
+    fun setAdapter(adapter: XmlBaseAdapter<T>) {
         xmlBaseAdapter = adapter
     }
 
-    private fun asyncParse(inputStream: InputStream, asyncObserver: AsyncObserver<*>) {
+    private fun asyncParse(inputStream: InputStream, asyncObserver: AsyncObserver<T>) {
         if (xmlPullParser == null) {
             return
         }
-        val tAsync: Async<T> = Async(asyncObserver)
-        tAsync.execute(object : AsyncTask() {
-            fun async(e: ObservableEmitter<*>) {
+        val tAsync = Async(asyncObserver)
+       // val tAsync = Async<T>(asyncObserver)
+        tAsync.execute(object : AsyncTask<T>() {
+
+
+            override fun async(e: Observer<T>) {
                 //设置流和字符集
                 try {
                     xmlPullParser.setInput(inputStream, "utf-8")
                     e.onNext(xmlBaseAdapter!!.getXmlData(xmlPullParser))
                 } catch (e1: XmlPullParserException) {
                     e1.printStackTrace()
-                    e.onError(Throwable(if (Check.isEmpty(e1.message)) "Xml pull parser exception." else e1.message))
+                    e.onError(Throwable(if (StringUtils.isEmpty(e1.message)) "Xml pull parser exception." else e1.message))
                 } catch (e1: IOException) {
                     e1.printStackTrace()
-                    e.onError(Throwable(if (Check.isEmpty(e1.message)) "io exception." else e1.message))
+                    e.onError(Throwable(if (StringUtils.isEmpty(e1.message)) "io exception." else e1.message))
                 }
                 e.onComplete()
             }
@@ -50,12 +58,12 @@ class XmlParser<T> {
     }
 
     @Throws(FileNotFoundException::class)
-    fun asyncParse(filePath: String?, asyncObserver: AsyncObserver<*>) {
+    fun asyncParse(filePath: String?, asyncObserver: AsyncObserver<T>) {
         this.asyncParse(File(filePath), asyncObserver)
     }
 
     @Throws(FileNotFoundException::class)
-    private fun asyncParse(file: File, asyncObserver: AsyncObserver<*>) {
+    private fun asyncParse(file: File, asyncObserver: AsyncObserver<T>) {
         this.asyncParse(FileInputStream(file), asyncObserver)
     }
 

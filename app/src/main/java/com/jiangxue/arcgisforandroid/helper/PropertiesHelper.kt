@@ -1,17 +1,19 @@
 package com.jiangxue.arcgisforandroid.helper
 
+import android.util.Log
 import com.google.gson.Gson
 import com.jiangxue.arcgisforandroid.ArcgisAndroidApplication
-import com.jiangxue.arcgisforandroid.ArcgisAndroidApplication.Companion.context
 import com.jiangxue.arcgisforandroid.data.Area
 import com.jiangxue.arcgisforandroid.data.xml.properties.Properties
+import com.jiangxue.arcgisforandroid.loader.PropertitesLoader
+import com.jiangxue.arcgisforandroid.loader.XmlLoader
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.io.IOException
 
+
 /**
- * Created by Jinyu Zhang on 2017/5/5.
  * 特性帮助类
  */
 class PropertiesHelper {
@@ -22,7 +24,9 @@ class PropertiesHelper {
     var properties: Properties? = null
         private set
     private var propertiesGetCallback: PropertiesGetCallback? = null
-    fun getProperties(propertiesGetCallback: PropertiesGetCallback?) {
+
+
+    fun getProperties(propertiesGetCallback: PropertiesHelper.PropertiesGetCallback?) {
         this.propertiesGetCallback = propertiesGetCallback
         if (propertiesGetCallback == null) {
             return
@@ -33,17 +37,20 @@ class PropertiesHelper {
             propertiesGetCallback.result(properties)
         }
     }
-
     private fun loadProperties() {
-        PropertitesLoader.getInstance().loadPropertites(
-            context.toString() + "/jx.properties",
-            object : XmlLoader.LoaderCallback<Properties?> {
-                override fun loadSuccess(properties: Properties) {
-                    this@PropertiesHelper.properties = properties
+        PropertitesLoader.getInstance()?.loadPropertites(
+            ArcgisAndroidApplication.getPath() + "/jx.properties",
+            object : XmlLoader.LoaderCallback<Any> {
+
+
+                override fun loadSuccess(t: Any) {
+                    this@PropertiesHelper.properties = t as Properties
                     propertiesGetCallback!!.result(properties)
                 }
 
-                override fun loadError(errorMsg: String?) {}
+                override fun loadError(errorMsg: String) {
+                    Log.e("loadError: errormsg",errorMsg.toString())
+                }
             })
     }
 

@@ -3,9 +3,7 @@ package com.jiangxue.arcgisforandroid.data.xml.shpconfig
 import android.os.Parcel
 import android.os.Parcelable
 
-/**
- * Created by Jinyu Zhang on 2017/4/28.
- */
+
 class ShpConfig : Parcelable {
     var fieds: Fieds? = null
     override fun describeContents(): Int {
@@ -22,7 +20,8 @@ class ShpConfig : Parcelable {
     }
 
     companion object {
-        val CREATOR: Parcelable.Creator<ShpConfig> = object : Parcelable.Creator<ShpConfig?> {
+        @JvmField
+        val CREATOR: Parcelable.Creator<ShpConfig?> = object : Parcelable.Creator<ShpConfig?> {
             override fun createFromParcel(source: Parcel): ShpConfig? {
                 return ShpConfig(source)
             }

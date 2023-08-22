@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.eyepetizer.android.ui.common.view
+package com.jiangxue.arcgisforandroid.view
 
 import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import com.eyepetizer.android.R
-import com.eyepetizer.android.util.TypeFaceUtil
+import com.jiangxue.arcgisforandroid.R
+import com.jiangxue.arcgisforandroid.util.TypeFaceUtil
 
 /**
  * 带有自定义字体TextView。

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.eyepetizer.android.util
+package com.jiangxue.arcgisforandroid.util
 
 import android.graphics.Typeface
-import com.eyepetizer.android.EyepetizerApplication
+import com.jiangxue.arcgisforandroid.ArcgisAndroidApplication
 
 /**
  * 自定义字体工具类。
@@ -38,22 +38,22 @@ object TypeFaceUtil {
     const val LOBSTER_TYPEFACE = 5
 
     val fzlLTypeface by lazy {
-        Typeface.createFromAsset(EyepetizerApplication.context.assets, "fonts/FZLanTingHeiS-L-GB-Regular.TTF")
+        Typeface.createFromAsset(ArcgisAndroidApplication.context.assets, "fonts/FZLanTingHeiS-L-GB-Regular.TTF")
     }
 
     val fzdb1Typeface by lazy {
-        Typeface.createFromAsset(EyepetizerApplication.context.assets, "fonts/FZLanTingHeiS-DB1-GB-Regular.TTF")
+        Typeface.createFromAsset(ArcgisAndroidApplication.context.assets, "fonts/FZLanTingHeiS-DB1-GB-Regular.TTF")
     }
 
     val futuraTypeface by lazy {
-        Typeface.createFromAsset(EyepetizerApplication.context.assets, "fonts/Futura-CondensedMedium.ttf")
+        Typeface.createFromAsset(ArcgisAndroidApplication.context.assets, "fonts/Futura-CondensedMedium.ttf")
     }
 
     val dinTypeface by lazy {
-        Typeface.createFromAsset(EyepetizerApplication.context.assets, "fonts/DIN-Condensed-Bold.ttf")
+        Typeface.createFromAsset(ArcgisAndroidApplication.context.assets, "fonts/DIN-Condensed-Bold.ttf")
     }
 
     val lobsterTypeface by lazy {
-        Typeface.createFromAsset(EyepetizerApplication.context.assets, "fonts/Lobster-1.4.otf")
+        Typeface.createFromAsset(ArcgisAndroidApplication.context.assets, "fonts/Lobster-1.4.otf")
     }
 }

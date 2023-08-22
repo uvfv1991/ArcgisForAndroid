@@ -1,6 +1,5 @@
-package com.aleyn.mvvm.network
+package com.jiangxue.arcgisforandroid.network
 
-import com.aleyn.mvvm.base.IBaseResponse
 
 /**
  *   @auther : Aleyn

@@ -1,11 +1,11 @@
 package com.jiangxue.arcgisforandroid.data.xml.properties
 
-import haoyuan.com.qianguoqualitysafety.pojo.xml.XmlPath
+import android.os.Parcel
+import android.os.Parcelable
+import com.jiangxue.arcgisforandroid.data.xml.XmlPath
+import com.jiangxue.arcgisforandroid.util.FileUtil
 
-/**
- * Created by Jinyu Zhang on 2017/5/4.
- * 类别
- */
+
 class Category : XmlPath, Parcelable {
     /**
      * Gets name.
@@ -41,17 +41,20 @@ class Category : XmlPath, Parcelable {
      */
     private var iconPath: String? = null
     fun getIconPath(): String {
-        return getCitedPath() + iconPath
+        return citedPath + iconPath
     }
 
     fun setIconPath(iconPath: String?) {
         this.iconPath = iconPath
     }
 
+
+
+    fun getParrentPath(): String? {
+        return FileUtil.getParentPath(citedPath, categoryPath)
+    }
     val path: String
-        get() = getCitedPath() + categoryPath
-    val parrentPath: String
-        get() = FileUtil.getParentPath(getCitedPath(), categoryPath)
+        get() = citedPath + categoryPath
 
     override fun describeContents(): Int {
         return 0
@@ -70,15 +73,14 @@ class Category : XmlPath, Parcelable {
         iconPath = `in`.readString()
     }
 
-    companion object {
-        val CREATOR: Parcelable.Creator<Category> = object : Parcelable.Creator<Category?> {
-            override fun createFromParcel(source: Parcel): Category {
-                return Category(source)
-            }
+    companion object CREATOR : Parcelable.Creator<Category> {
+        override fun createFromParcel(parcel: Parcel): Category {
+            return Category(parcel)
+        }
 
-            override fun newArray(size: Int): Array<Category> {
-                return arrayOfNulls(size)
-            }
+        override fun newArray(size: Int): Array<Category?> {
+            return arrayOfNulls(size)
         }
     }
+
 }

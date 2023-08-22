@@ -1,25 +1,36 @@
 package com.jiangxue.arcgisforandroid.mapview
 
-import haoyuan.com.qianguoqualitysafety.utils.AsyncObserver
+import com.jiangxue.arcgisforandroid.data.xml.properties.Properties
+import com.jiangxue.arcgisforandroid.helper.AsyncObserver
 import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-/**
- * Created by Jinyu Zhang on 2017/5/2.
- */
-class Async<T>(asyncObserver: AsyncObserver) {
-    private val asyncObserver: AsyncObserver<T>
+
+class Async<T : Any>(asyncObserver: AsyncObserver<T>) {
+     var asyncObserver: AsyncObserver<T>
 
     init {
         this.asyncObserver = asyncObserver
+
     }
 
-    fun execute(asyncTask: AsyncTask<*>) {
-        Observable.create<T>(object : ObservableOnSubscribe<T> {
-            @Throws(Exception::class)
+    fun execute(asyncTask: AsyncTask<T>) {
+
+
+        Observable.create(object :ObservableOnSubscribe<T>{
             override fun subscribe(e: ObservableEmitter<T>) {
-                asyncTask.async(e)
+                asyncTask.async(asyncObserver)
             }
-        }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
-            .subscribe(asyncObserver)
+
+        }).subscribe(asyncObserver)
+
+
+
+
     }
+
 }

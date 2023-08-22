@@ -3,7 +3,7 @@ package com.jiangxue.arcgisforandroid.widge
 import com.esri.arcgisruntime.mapping.view.MapView
 
 open class MapViewHelpers(mapView: MapView?) {
-    val mapView: MapView? = null
+    var mapView: MapView? = null
 
     init {
         requireNotNull(mapView) { "mapview == null" }

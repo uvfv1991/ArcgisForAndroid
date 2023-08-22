@@ -1,9 +1,12 @@
 package com.jiangxue.arcgisforandroid.loader
 
-import haoyuan.com.qianguoqualitysafety.adapter.PropertiesXmlAdapter
+import com.jiangxu.PropertiesXmlAdapter
+import com.jiangxue.arcgisforandroid.ArcgisAndroidApplication
+import com.jiangxue.arcgisforandroid.adapter.XmlBaseAdapter
+import com.jiangxue.arcgisforandroid.data.xml.properties.Properties
+
 
 /**
- * Created by Jinyu Zhang on 2017/5/5.
  * 特性加载
  */
 class PropertitesLoader private constructor() {
@@ -12,14 +15,15 @@ class PropertitesLoader private constructor() {
     }
 
     fun loadPropertites(
-        filePath: String,
-        propertiesLoaderCallback: XmlLoader.LoaderCallback<Properties>?
+        filePath: String?,
+        propertiesLoaderCallback: XmlLoader.LoaderCallback<Any>,
     ) {
-        XmlLoader.Companion.getInstance()!!.load(
-            filePath,
-            PropertiesXmlAdapter(MyApplication.getWorkPath()),
+        XmlLoader.getInstance()?.load<Any>(
+            filePath.toString(),
+            PropertiesXmlAdapter(ArcgisAndroidApplication.getPath()),
             propertiesLoaderCallback
         )
+
     }
 
     companion object {

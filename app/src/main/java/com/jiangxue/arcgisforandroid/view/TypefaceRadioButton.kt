@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package com.eyepetizer.android.ui.common.view
+package com.jiangxue.arcgisforandroid.view
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatRadioButton
-import com.eyepetizer.android.R
+import com.jiangxue.arcgisforandroid.R
 
 /**
  * 带有自定义字体RadioButton。
  *
- * @author vipyinzhiwei
- * @since  2020/5/24
  */
 class TypefaceRadioButton : AppCompatRadioButton {
 

@@ -1,17 +1,18 @@
-package com.aleyn.mvvm.base
+package com.jiangxue.arcgisforandroid.base
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
-import com.aleyn.mvvm.R
-import com.aleyn.mvvm.event.Message
-import com.blankj.utilcode.util.ToastUtils
+import com.jiangxue.arcgisforandroid.event.Message
+import com.jiangxue.arcgisforandroid.util.ActivityCollector
+import org.greenrobot.eventbus.EventBus
+import java.lang.ref.WeakReference
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -20,22 +21,77 @@ import java.lang.reflect.ParameterizedType
  */
 abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompatActivity() {
 
-    protected lateinit var viewModel: VM
-
     protected var mBinding: DB? = null
 
     private var dialog: MaterialDialog? = null
 
+    /**
+     * 判断当前Activity是否在前台。
+     */
+    protected var isActive: Boolean = false
+
+    /**
+     * 当前Activity的实例。
+     */
+    protected var activity: Activity? = null
+
+    /** 当前Activity的弱引用，防止内存泄露  */
+    private var activityWR: WeakReference<Activity>? = null
+
+    /**
+     * 日志输出标志
+     */
+    protected val TAG: String = this.javaClass.simpleName
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity = this
+        activityWR = WeakReference(activity!!)
+        ActivityCollector.pushTask(activityWR)
+
+        EventBus.getDefault().register(this)
         initViewDataBinding()
-        lifecycle.addObserver(viewModel)
         // 注册 UI事件
         registorDefUIChange()
         initView(savedInstanceState)
         initData()
     }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        isActive = true
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        isActive = false
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i(TAG, "onStop: a")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        activity = null
+        ActivityCollector.rmoveTask(activityWR)
+        EventBus.getDefault().unregister(this)
+    }
     abstract fun layoutId(): Int
     abstract fun initView(savedInstanceState: Bundle?)
     abstract fun initData()
@@ -52,37 +108,12 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
         } else {
             setContentView(layoutId())
         }
-        createViewModel()
     }
 
     /**
      * 注册 UI 事件
      */
     private fun registorDefUIChange() {
-        viewModel.defUI.showDialog.observe(
-            this,
-            Observer {
-                showLoading()
-            },
-        )
-        viewModel.defUI.dismissDialog.observe(
-            this,
-            Observer {
-                dismissLoading()
-            },
-        )
-        viewModel.defUI.toastEvent.observe(
-            this,
-            Observer {
-                ToastUtils.showShort(it)
-            },
-        )
-        viewModel.defUI.msgEvent.observe(
-            this,
-            Observer {
-                handleEvent(it)
-            },
-        )
     }
 
     open fun handleEvent(msg: Message) {}
@@ -95,9 +126,9 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
             dialog = MaterialDialog(this)
                 .cancelable(false)
                 .cornerRadius(8f)
-                .customView(R.layout.custom_progress_dialog_view, noVerticalPadding = true)
+                // .customView(R.layout.custom_progress_dialog_view, noVerticalPadding = true)
                 .lifecycleOwner(this)
-                .maxWidth(R.dimen.dialog_width)
+            // .maxWidth(R.dimen.dialog_width)
         }
         dialog?.show()
     }
@@ -107,18 +138,5 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
      */
     private fun dismissLoading() {
         dialog?.run { if (isShowing) dismiss() }
-    }
-
-    /**
-     * 创建 ViewModel
-     */
-    @Suppress("UNCHECKED_CAST")
-    private fun createViewModel() {
-        val type = javaClass.genericSuperclass
-        if (type is ParameterizedType) {
-            val tp = type.actualTypeArguments[0]
-            val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
-            viewModel = ViewModelProvider(this, ViewModelFactory()).get(tClass) as VM
-        }
     }
 }
