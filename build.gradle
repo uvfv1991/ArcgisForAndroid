@@ -1,0 +1,29 @@
+buildscript {
+    ext.kotlin_version = '1.6.21'
+
+    ext.anko_version='0.10.8'
+    repositories {
+        google()
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/central/'}
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/central/'}
+        jcenter()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
